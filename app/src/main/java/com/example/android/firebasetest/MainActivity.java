@@ -45,19 +45,28 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,contents,Toast.LENGTH_SHORT).show();
 
                 // Create a reference to the cities collection
-                CollectionReference collecRef = database.collection("Students");
+                CollectionReference Students = database.collection("Students");
                 // Create a query against the collection.
-                Query query = collecRef.whereEqualTo("id", contents);
+                Query query = Students.whereEqualTo("id", contents);
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("YELLOW", document.getId() + " => " + document.getData());
+                                TextView Data=findViewById(R.id.retrieved_data);
+                                String College=(String) document.get("College");
+                                String Name=(String) document.get("Name");
+                                String Sport=(String) document.get("Sport");
+                                String url = (str1+Name+str2+Sport+str3+College+str4);
+                                Data.setText(College+"\n"+Name+"\n"+Sport);
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(url));
+                                startActivity(i);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 }
 
                         } else {
-                            Log.d("YELLOW", "Error getting documents: ", task.getException());
+                            Log.d("DATA", "Error getting documents: ", task.getException());
                         }
                     }
                 });
