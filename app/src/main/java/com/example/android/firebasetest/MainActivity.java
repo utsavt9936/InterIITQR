@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 String st=String.valueOf(ss.charAt(11))+String.valueOf(ss.charAt(12));
                 final int t=Integer.parseInt(st);
 
-
                 // Create a reference to the cities collection
                 CollectionReference Students = database.collection("Students");
                 // Create a query against the collection.
@@ -86,9 +87,14 @@ public class MainActivity extends AppCompatActivity {
                                 String Designation=(String) document.get("Designation");
                                 String currentStatus=(String)document.get("Status");
 
-                                if(currentStatus.equals(statusUpdate))
+                                if(currentStatus.equals(statusUpdate)) {
                                     //Toast.makeText(MainActivity.this,"Chori",Toast.LENGTH_LONG).show();
-                                    Data.setText(Name+"\n"+Sport+"\n"+Designation+"\n"+College+"\nAlready Recorded");
+                                    Data.setText(Name + "\n" + Sport + "\n" + Designation + "\n" + College);
+                                    TextView alert = findViewById(R.id.alert_view);
+                                    alert.setText("Already Recorded");
+                                    MediaPlayer player=MediaPlayer.create(MainActivity.this,R.raw.beep);
+                                    player.start();
+                                }
                                 else {
                                     document.getReference().update("Status",statusUpdate);
                                     String url = (str1+Name+str2+Sport+str3+College+str4);
