@@ -6,24 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -85,14 +80,15 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 TextView Data=findViewById(R.id.retrieved_data);
-                                String College=(String) document.get("College");
+                                String College=(String) document.get("IIT Name");
                                 String Name=(String) document.get("Name");
-                                String Sport=(String) document.get("Sport");
+                                String Sport=(String) document.get("Sports");
+                                String Designation=(String) document.get("Designation");
                                 String currentStatus=(String)document.get("Status");
 
                                 if(currentStatus.equals(statusUpdate))
                                     //Toast.makeText(MainActivity.this,"Chori",Toast.LENGTH_LONG).show();
-                                    Data.setText(Name+"\n"+Sport+"\n"+College+"\nAlready Recorded");
+                                    Data.setText(Name+"\n"+Sport+"\n"+Designation+"\n"+College+"\nAlready Recorded");
                                 else {
                                     document.getReference().update("Status",statusUpdate);
                                     String url = (str1+Name+str2+Sport+str3+College+str4);
@@ -100,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                                     i.setData(Uri.parse(url));
                                     startActivity(i);
                                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    Data.setText(Name+"\n"+Sport+"\n"+College);
+                                    Data.setText(Name+"\n"+Sport+"\n"+Designation+"\n"+College);
                                 }
 
                             }
