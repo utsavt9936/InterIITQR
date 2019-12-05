@@ -11,40 +11,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contacts"
-        android:background="#4A148C"
         android:textSize="40sp"
-        android:textColor="#E8EAF6"
+        android:textColor="#000000"
         android:layout_gravity="center_horizontal"/>
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="35sp"
         android:textColor="#000000"
         android:text="Vaibhav : 8871125428"
         android:id="@+id/Vaibhav"
         android:textIsSelectable="true"
-        android:layout_margin="16dp"
-        android:background="#F06292"
         />
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="35sp"
         android:textColor="#000000"
-        android:layout_margin="16dp"
         android:text="Samarth : 8739990058"
         android:id="@+id/Samarth"
         android:textIsSelectable="true"
-        android:background="#F06292"
         />
 
     <TextView
-        android:background="#F06292"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:textSize="35sp"
         android:textColor="#000000"
         android:text="Utsav : 9161684098"
@@ -52,18 +45,13 @@
         android:textIsSelectable="true"
         />
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="35sp"
         android:textColor="#000000"
-        android:background="#F06292"
-
-        android:layout_margin="16dp"
         android:text="Jayesh : 9774630020"
         android:id="@+id/Jayesh"
         android:textIsSelectable="true"
-
-
         />
 
 
