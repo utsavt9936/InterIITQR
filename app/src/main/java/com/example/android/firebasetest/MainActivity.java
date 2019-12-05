@@ -32,7 +32,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    String contents=null;
+    String contents = null;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -84,10 +84,6 @@ public class MainActivity extends AppCompatActivity {
                                 // Toast.makeText(MainActivity.this,statusUpdate,Toast.LENGTH_SHORT).show();
 
 
-
-
-
-
                                 TextView Data=findViewById(R.id.retrieved_data);
                                 String College=(String) document.get("College");
                                 String Name=(String) document.get("Name");
@@ -95,21 +91,24 @@ public class MainActivity extends AppCompatActivity {
                                 String currentStatus=(String)document.get("Status");
 
                                 if(currentStatus.equals(statusUpdate))
-                                    Toast.makeText(MainActivity.this,"Chori",Toast.LENGTH_LONG).show();
-                                else
-                                {
+                                    //Toast.makeText(MainActivity.this,"Chori",Toast.LENGTH_LONG).show();
+                                    Data.setText(Name+"\n"+Sport+"\n"+College+"\nAlready Recorded");
+                                else {
                                     document.getReference().update("Status",statusUpdate);
                                     String url = (str1+Name+str2+Sport+str3+College+str4);
                                     Intent i = new Intent(Intent.ACTION_VIEW);
                                     i.setData(Uri.parse(url));
                                     startActivity(i);
                                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    Data.setText(Name+"\n"+Sport+"\n"+College);
                                 }
 
-                                Data.setText(College+"\n"+Name+"\n"+Sport);}
+                            }
 
 
                         } else {
+                            TextView Data=findViewById(R.id.retrieved_data);
+                            Data.setText("Record not Found");
                             Log.d("DATA", "Error getting documents: ", task.getException());
                         }
                     }
@@ -159,6 +158,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+        });
+
+
+        Button help=findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this,HelpActivity.class);
+                startActivity(intent);
+            }
         });
     }
 }
