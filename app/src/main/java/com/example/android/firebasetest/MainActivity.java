@@ -26,8 +26,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.Map;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,11 +65,59 @@ public class MainActivity extends AppCompatActivity {
                 CollectionReference Students = database.collection("Students");
                 // Create a query against the collection.
                 Query query = Students.whereEqualTo("id", contents);
+
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+
+
+
+
+
+                                Date currentTime= Calendar.getInstance().getTime();
+                                String ss=currentTime.toString();
+                                String sd=String.valueOf(ss.charAt(8))+String.valueOf(ss.charAt(9));
+                                String st=String.valueOf(ss.charAt(11))+String.valueOf(ss.charAt(12));
+                                int t=Integer.parseInt(st);
+                                String statusUpdate="0";
+                                if(t>=7&&t<=10)
+                                    statusUpdate=sd+"M";
+                                else if (t>=12&&t<=15)
+                                    statusUpdate=sd+"A";
+                                else if (t>=19&&t<=23)
+                                    statusUpdate=sd+"N";
+
+
+                               // Toast.makeText(MainActivity.this,statusUpdate,Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+                                TextView Data=findViewById(R.id.retrieved_data);
+                                String College=(String) document.get("College");
+                                String Name=(String) document.get("Name");
+                                String Sport=(String) document.get("Sport");
+                                String currentStatus=(String)document.get("Status");
+                                if(currentStatus.equals(statusUpdate))
+                                    Toast.makeText(MainActivity.this,"Chori",Toast.LENGTH_LONG).show();
+                                else
+                                {
+                                    document.getReference().update("Status",statusUpdate);
+                                    String url = (str1+Name+str2+Sport+str3+College+str4);
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(url));
+                                    startActivity(i);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                }
+
+                                Data.setText(College+"\n"+Name+"\n"+Sport);
+
+                                }
+
 
                                 Date currentTime= Calendar.getInstance().getTime();
                                 String ss=currentTime.toString();
